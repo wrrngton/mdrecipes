@@ -1,0 +1,25 @@
+<aside>
+  <a href="/" class="aside__heading" data-path="/">Introduction</a>
+  <a href="/" class="aside__heading">Recipes</a>
+  {% for r in recipes %}
+
+  <a href="{% if r != "nocategory" %}/{{ r }}{% else %}#{% endif %}" class="aside__heading aside__category">
+      {{ r }} {% if configuration.auto_collapse %}
+    <span class="aside__chevron">^</span>
+    {% endif %}
+  </a>
+
+  <ul class="mb-2 {% if configuration.auto_collapse %} hidden {% endif %}">
+    {% for f in recipes[r] %}
+
+    <li><a href="/{{ r }}/{{ f.filename}}">{{ f.title }}</a></li>
+
+    {% endfor %} {% if recipes | length > 1 %}
+
+    <a href="/{{ r }}" class="aside__more">See more</a>
+
+    {% endif %}
+  </ul>
+
+  {% endfor %}
+</aside>

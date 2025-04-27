@@ -1,0 +1,15 @@
+{% extends "base/base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+  
+  <h1>{{ title }}</h1>
+
+  <img src="/images/{{ image }}" alt="{{ title }}"/>
+
+  {% for tag in tags %}
+      {{ tag }}
+  {% endfor %}
+  
+  {{ content }}
+
+{% endblock %}

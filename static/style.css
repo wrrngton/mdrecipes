@@ -1,0 +1,285 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+
+:root {
+  --bg-light: #fafafa;
+  --active-link: #1f1fff;
+  --icons: #747474;
+  --links: #20609f;
+  --aside-width: 36rem;
+  --container-width: 75rem;
+}
+
+/* Reset */
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Base */
+body,
+html {
+  height: 100%;
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  font-size: 1.6rem;
+}
+
+/* Helpers */
+.flex {
+  display: flex;
+}
+
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
+.p-5 {
+  padding: 1.5rem;
+}
+
+/* Layout */
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 5rem;
+  color: var(--icons);
+}
+
+/* Search */
+
+search {
+  margin-bottom: 5rem;
+  width: var(--container-width);
+  display: none;
+}
+
+search.show {
+  display: block;
+}
+
+search input {
+  background-color: var(--bg-light);
+  border: 1px solid black;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  width: 100%;
+}
+
+#search-toggle {
+  cursor: pointer;
+}
+
+#hits {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+#hits.hidden {
+  display: none;
+}
+
+#hits ul {
+  border-bottom: 1px dashed var(--icons);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+#hits ul li {
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+#hits h2 {
+  font-size: 1.6rem;
+  font-weight: unset;
+  margin-top: 0;
+  margin-bottom: .5rem;
+}
+
+#hits p {
+  margin-bottom: 0px;
+}
+
+#hits .tags {
+  text-align: right;
+  color: var(--icons);
+  font-size: 1.4rem;
+}
+
+.nav--left {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+aside {
+  background-color: var(--bg-light);
+  width: 36rem;
+  padding: 1.5rem;
+}
+
+aside.hidden {
+  display: none;
+  /* transform: translateX(calc(var(--aside-width) * -1)); */
+  /* width: 0px; */
+}
+
+aside a {
+  text-decoration: none;
+  color: inherit;
+  font-size: 1.4rem;
+}
+
+.aside__more {
+  color: var(--links); 
+}
+
+aside ul {
+  cursor: pointer;
+}
+
+aside ul.hidden {
+  display: none;
+}
+
+aside ul > li {
+  margin-bottom: .5rem; 
+}
+
+.aside__heading {
+  margin-bottom: 1.5rem;
+  display: block;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.aside__active {
+  color: var(--active-link);
+}
+
+.aside__category {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.aside__category span {
+  cursor: pointer;
+  transform: rotate(90deg);
+}
+
+/* If ul for that category is showing, rotate chevron */
+.aside__category:has(+ ul:not(.hidden)) span {
+  transform: rotate(180deg);
+}
+
+.menu-toggle {
+  cursor: pointer;
+}
+
+.menu-toggle div {
+  background-color: var(--icons);
+  margin-bottom: 3px;
+  height: 2px;
+  width: 16px;
+}
+
+article {
+  width: var(--container-width);
+}
+
+/* Typography */
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 3.2rem;
+}
+
+h2 {
+  font-size: 2.8rem;
+}
+
+p {
+  margin-bottom: 1.6rem;
+}
+
+header h1 {
+  font-weight: 100;
+  font-size: 2.4rem;
+}
+
+article h1,
+article h2,
+article h3,
+article h4,
+article h5,
+article h6 {
+  text-transform: capitalize;
+}
+
+article h1 {
+  margin-bottom: 2rem;
+}
+
+article h2 {
+  margin-top: 3.8rem;
+  margin-bottom: 1.8rem;
+}
+
+article h3 {
+  margin-bottom: 1.4rem;
+}
+
+article img {
+  max-width: 100%;
+  margin-bottom: 1rem;
+  height: auto;
+  display: block;
+}
+
+article p {
+  margin-bottom: 1.5rem;
+}
+
+article ul,
+article ol {
+  padding-left: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+article ul {
+  list-style: disc;
+}
+
+article ol {
+  list-style: decimal;
+}
+
+/* Elements */
+ul,
+ol {
+  list-style: none;
+}

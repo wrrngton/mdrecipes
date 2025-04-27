@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script type="application/json" id="recipe-data">{{ recipes | tojson }} </script>
+    <script src="/lunr.js" defer></script>
+    <script src="/script.js" defer></script>
+  </head>
+
+  <body class="flex flex-row h-full">
+    {% include "/components/aside.html" with context %}
+    <main class="p-5 flex flex-col align-center w-full">
+      {% include "/components/header.html" %}
+      {% include "/components/search.html" %}
+      <article class="max-w-2xl mx-auto">
+        {% block content %}{% endblock %}
+      </article>
+    </main>
+  </body>
+
+</html>

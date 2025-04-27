@@ -1,0 +1,15 @@
+{% extends "base/base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+
+  <img src="/images/{{ image }}" alt="{{ title }}"/>
+  <h1>{{ title }}{{ icon }}</h1>
+  <p>{{ description }}</p>
+
+  <ul>
+    {% for r in recipes_in_cat %}
+      <li><a href="{{ r.filename }}">{{ r.title }}</a></li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}
