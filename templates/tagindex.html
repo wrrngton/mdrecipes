@@ -1,0 +1,11 @@
+{% extends "base/base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+  <h1>Recipes tagged with: {{ title }}</h1>
+  <ul>
+    {% for r in tag_recipes %}
+      <li><a href="/{{ r.category }}/{{ r.filename }}">{{ r.title }}</a></li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

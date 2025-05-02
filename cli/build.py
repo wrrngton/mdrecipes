@@ -7,12 +7,12 @@ import click
 import markdown
 from jinja2 import Environment, FileSystemLoader
 
-from .helpers.check_recipe_validity import (are_recipes_duped, is_readme_valid,
-                                            is_recipe_valid)
+from .helpers.check_recipe_validity import are_recipes_duped, is_recipe_valid
 from .helpers.copy_images import copy_user_images
 from .helpers.file_paths import cli_dir
 from .helpers.get_readme import get_user_readme
-from .helpers.get_recipes import get_user_readmes, get_user_recipes
+from .helpers.get_recipes import (get_user_readmes, get_user_recipes,
+                                  get_user_tags)
 from .helpers.get_static_files import get_user_static_files
 from .helpers.load_config import get_user_config
 
@@ -55,7 +55,7 @@ def build_book():
     # Recipes are returned as an array of categories, with subarrays of recipes
     recipes = get_user_recipes()
     readmes = get_user_readmes()
-    # print(readmes, "blah")
+    tags = get_user_tags(recipes)
     settings = config["settings"]
 
     for cat, cat_recipes in recipes.items():
@@ -90,12 +90,11 @@ def build_book():
         os.makedirs(os.path.join(outpath, cat), exist_ok=True)
 
         for readme in cat_readme:
-            is_valid = is_readme_valid(readme)
 
-            # if is_valid is False:
-            #     raise click.ClickException(
-            #         "Recipes are expected to have at least '## Ingredients' and '## Instructions'\nThe book was not built"
-            #     )
+            if is_valid is False:
+                raise click.ClickException(
+                    "Recipes are expected to have at least '## Ingredients' and '## Instructions'\nThe book was not built"
+                )
 
             readme_template = template_env.get_template("catindex.html")
             category_recipes = [f for r, f in recipes.items() if r == cat][0]
@@ -109,6 +108,18 @@ def build_book():
                 recipes_in_cat=category_recipes,
             )
             push_file(readme_output, readme["filename"], cat)
+
+    # Build tags
+    os.makedirs(os.path.join(outpath, "tags"), exist_ok=True)
+
+    for tag, tag_data in tags.items():
+        tag_template = template_env.get_template("tagindex.html")
+        tag_output = tag_template.render(
+            title=tag, tag_recipes=tag_data, recipes=recipes, configuration=settings
+        )
+
+        push_file(tag_output, f"{tag}.html", os.path.join(outpath, "tags"))
+
 
     # Build readme
     readme = get_user_readme()

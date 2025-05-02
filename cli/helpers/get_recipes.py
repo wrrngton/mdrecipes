@@ -42,6 +42,7 @@ def traverse_directories():
     # init obj of classified recipes and category indexes
     recipes_in_folders = {}
     readmes_in_folders = {}
+    tags_with_recipes = []
 
     # Get list of subdirectories and top level recipes
     subfolders = [f.path for f in os.scandir(recipes_path) if f.is_dir()]
@@ -82,7 +83,7 @@ def traverse_directories():
     return (readmes_in_folders, recipes_in_folders)
 
 
-def extract_recipe_data(recipe):
+def extract_recipe_data(recipe, cat):
     """Extracts recipe data"""
     with open(recipe, "r", encoding="utf-8") as f:
         post = frontmatter.loads(f.read())
@@ -97,7 +98,9 @@ def extract_recipe_data(recipe):
             "content": post.content,
             "filename": file_name.replace(".md", ".html"),
             "image": post["image"],
+            "category": cat
         }
+
         return recipe_dict
 
 
@@ -128,7 +131,7 @@ def get_user_recipes():
     _, categorised_recipes = traverse_directories()
 
     for cat, recipes in categorised_recipes.items():
-        new_arr = [extract_recipe_data(f) for f in recipes]
+        new_arr = [extract_recipe_data(f, cat) for f in recipes]
         categorised_recipes[cat] = new_arr
 
     return categorised_recipes
@@ -143,3 +146,20 @@ def get_user_readmes():
         categorised_readmes[cat] = new_arr
 
     return categorised_readmes
+
+
+def get_user_tags(recipes) -> dict:
+    recipes_dict = {}
+
+    def loop_tags(tags, recipe):
+        for tag in tags:
+            if tag not in recipes_dict:
+                recipes_dict[tag] = []
+            if tag in recipes_dict:
+                recipes_dict[tag].append(recipe)
+
+    for key in recipes:
+        for recipe in recipes[key]:
+            loop_tags(recipe["tags"], recipe)
+
+    return recipes_dict

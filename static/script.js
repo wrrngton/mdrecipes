@@ -36,17 +36,38 @@ if (asideList.classList.contains("hidden")) {
   });
 }
 
+// window.addEventListener("resize", (e) => {
+//   console.log(e.target.innerWidth);
+//
+//   if (e.target.innerWidth) {
+//      aside.classList.toggle("hidden");
+//   }
+//
+//   // aside.classList.toggle("hidden");
+// });
+
 toggleMenu.addEventListener("click", () => {
-  aside.classList.toggle("hidden");
+  windowWidth = window.innerWidth;
+
+  if (windowWidth <= 1000 && !aside.classList.contains("show")) {
+    aside.classList.add("show");
+  }
+  else if (windowWidth < 1000 && aside.classList.contains("show")) {
+    aside.classList.remove("show");
+    aside.classList.add("hidden");
+  }
+  else {
+    aside.classList.toggle("hidden");
+  }
 });
 
 // Search
-toggleSearch.addEventListener("click", function () {
+toggleSearch.addEventListener("click", function() {
   searchSection.classList.toggle("show");
 });
 
 function renderResults(results, query) {
-  if (query === "" || results.length === 0) return searchHits.innerHTML = "";
+  if (query === "" || results.length === 0) return (searchHits.innerHTML = "");
 
   let html = `<ul>`;
 
@@ -76,23 +97,23 @@ function initSearch() {
         category,
         title: recipe.title,
         tags: recipe.tags,
-        filename: recipe.filename
+        filename: recipe.filename,
       });
     }
   }
 
-  const searcher = lunr(function () {
+  const searcher = lunr(function() {
     this.ref("id");
     this.field("category");
     this.field("title");
     this.field("tags");
 
-    recipeDocs.forEach(function (doc) {
+    recipeDocs.forEach(function(doc) {
       this.add(doc);
     }, this);
   });
 
-  searchBar.addEventListener("input", function (e) {
+  searchBar.addEventListener("input", function(e) {
     const userQuery = e.target.value;
 
     const results = searcher.search(e.target.value + "*");

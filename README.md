@@ -7,3 +7,10 @@ It isn't a fork of mdbook, but it's own program that takes its general design fr
 - Less wiki-ey, more like your own personal recipe book
 - Support for recipe categories and tags
 - Ability to create recipes from the URLs of online recipes and automatically categorise them 
+
+## Usage
+
+
+### Initialise
+
+
