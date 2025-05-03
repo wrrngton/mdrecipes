@@ -13,10 +13,12 @@
     {% include "/components/aside.html" with context %}
     <main class="p-5 flex flex-col align-center w-full">
       {% include "/components/header.html" %}
-      {% include "/components/search.html" %}
-      <article class="max-w-2xl mx-auto">
-        {% block content %}{% endblock %}
-      </article>
+      <div class="container">
+        {% include "/components/search.html" %}
+        <article class="">
+          {% block content %}{% endblock %}
+        </article>
+      </div>
     </main>
   </body>
 

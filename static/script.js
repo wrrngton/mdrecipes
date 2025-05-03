@@ -36,16 +36,6 @@ if (asideList.classList.contains("hidden")) {
   });
 }
 
-// window.addEventListener("resize", (e) => {
-//   console.log(e.target.innerWidth);
-//
-//   if (e.target.innerWidth) {
-//      aside.classList.toggle("hidden");
-//   }
-//
-//   // aside.classList.toggle("hidden");
-// });
-
 toggleMenu.addEventListener("click", () => {
   windowWidth = window.innerWidth;
 
@@ -67,7 +57,8 @@ toggleSearch.addEventListener("click", function() {
 });
 
 function renderResults(results, query) {
-  if (query === "" || results.length === 0) return (searchHits.innerHTML = "");
+  if (query === "" ) return (searchHits.innerHTML = "");
+  if (results.length === 0) return (searchHits.innerHTML = "<strong>No results found</strong>")
 
   let html = `<ul>`;
 
