@@ -1,6 +1,5 @@
 """Builds static files and pushes to /book"""
 
-import json
 import os
 
 import click
@@ -31,8 +30,9 @@ def get_path_info():
 
     recipe_directory = os.path.join(config["book"]["directory"], "content")
     recipe_out_directory = os.path.join(config["book"]["directory"], "book")
+    content_directory = os.path.join(config["book"]["directory"], "content")
 
-    return (recipe_directory, recipe_out_directory, env)
+    return (recipe_directory, recipe_out_directory, env, content_directory)
 
 
 def push_file(file_content, file_name, directory=""):
@@ -119,7 +119,6 @@ def build_book():
         )
 
         push_file(tag_output, f"{tag}.html", os.path.join(outpath, "tags"))
-
 
     # Build readme
     readme = get_user_readme()
