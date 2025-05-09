@@ -1,4 +1,5 @@
 import os
+
 from pathlib import Path
 
 def current_user_dir() -> str:
